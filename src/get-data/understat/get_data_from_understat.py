@@ -9,6 +9,27 @@ import json
 leagues = ['La_liga', 'EPL', 'Bundesliga', 'Serie_A', 'Ligue_1']
 seasons = ['2014', '2015', '2016', '2017', '2018','2019','2020','2021']
 
+# KEYS IN DATA
+# h_a: home or away
+# xG: Expected goals for
+# xGA: Expected goals against
+# npxG: Expected goals for without penalties and own goals
+# npxGA: Expected goals against without penalties and own goals
+# ppda: {att, def} Passes allowed per defensive action in the opposition half (converted to ppda_ratio = att/def)
+# ppda_allowed: {att, def} Oponent passes allowed per defensive action in the opposition half (converted to oppda_ratio = att/def)
+# deep: Passes completed within an estimated 20 yards of goal (crosses excluded)
+# deep_allowed: Opponent passes completed within an estimated 20 yards of goal (crosses excluded)
+# scored: Goals for
+# missed: Goals against
+# xpts: Expected points
+# result: 'w', 'd', 'l'
+# date
+# wins: 0 or 1
+# draws: 0 or 1
+# loses: 0 or 1
+# pts: Points
+# npxGD: npxG-npxGA
+
 def get_understat_data(leagues, seasons):
     base_url = 'https://understat.com/league'
     for league in leagues:
