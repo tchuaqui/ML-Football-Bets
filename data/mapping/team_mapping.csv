@@ -1,0 +1,154 @@
+team_id,league_id,understat_team,footballdata_team,oddsmagnet_team,oddsmagnet_league
+Arminia Bielefeld,Bundesliga,Arminia Bielefeld,,,germany-bundesliga
+Augsburg,Bundesliga,Augsburg,,,germany-bundesliga
+Bayer Leverkusen,Bundesliga,Bayer Leverkusen,,,germany-bundesliga
+Bayern Munich,Bundesliga,Bayern Munich,,,germany-bundesliga
+Bochum,Bundesliga,Bochum,,,germany-bundesliga
+Borussia Dortmund,Bundesliga,Borussia Dortmund,,,germany-bundesliga
+Borussia M.Gladbach,Bundesliga,Borussia M.Gladbach,,,germany-bundesliga
+Darmstadt,Bundesliga,Darmstadt,,,germany-bundesliga
+Eintracht Frankfurt,Bundesliga,Eintracht Frankfurt,,,germany-bundesliga
+FC Cologne,Bundesliga,FC Cologne,,,germany-bundesliga
+Fortuna Duesseldorf,Bundesliga,Fortuna Duesseldorf,,,germany-bundesliga
+Freiburg,Bundesliga,Freiburg,,,germany-bundesliga
+Greuther Fuerth,Bundesliga,Greuther Fuerth,,,germany-bundesliga
+Hamburger SV,Bundesliga,Hamburger SV,,,germany-bundesliga
+Hannover 96,Bundesliga,Hannover 96,,,germany-bundesliga
+Hertha Berlin,Bundesliga,Hertha Berlin,,,germany-bundesliga
+Hoffenheim,Bundesliga,Hoffenheim,,,germany-bundesliga
+Ingolstadt,Bundesliga,Ingolstadt,,,germany-bundesliga
+Mainz 05,Bundesliga,Mainz 05,,,germany-bundesliga
+Nuernberg,Bundesliga,Nuernberg,,,germany-bundesliga
+Paderborn,Bundesliga,Paderborn,,,germany-bundesliga
+RasenBallsport Leipzig,Bundesliga,RasenBallsport Leipzig,,,germany-bundesliga
+Schalke 04,Bundesliga,Schalke 04,,,germany-bundesliga
+Union Berlin,Bundesliga,Union Berlin,,,germany-bundesliga
+VfB Stuttgart,Bundesliga,VfB Stuttgart,,,germany-bundesliga
+Werder Bremen,Bundesliga,Werder Bremen,,,germany-bundesliga
+Wolfsburg,Bundesliga,Wolfsburg,,,germany-bundesliga
+Arsenal,EPL,Arsenal,,arsenal,england-premier-league
+Aston Villa,EPL,Aston Villa,,aston-villa,england-premier-league
+Bournemouth,EPL,Bournemouth,,bournemouth,england-premier-league
+Brentford,EPL,Brentford,,brentford,england-premier-league
+Brighton,EPL,Brighton,,brighton,england-premier-league
+Burnley,EPL,Burnley,,burnley,england-premier-league
+Cardiff,EPL,Cardiff,,cardiff-city,england-premier-league
+Chelsea,EPL,Chelsea,,chelsea,england-premier-league
+Crystal Palace,EPL,Crystal Palace,,crystal-palace,england-premier-league
+Everton,EPL,Everton,,everton,england-premier-league
+Fulham,EPL,Fulham,,fulham,england-premier-league
+Huddersfield,EPL,Huddersfield,,huddersfield,england-premier-league
+Hull,EPL,Hull,,hull-city,england-premier-league
+Leeds,EPL,Leeds,,leeds-united,england-premier-league
+Leicester,EPL,Leicester,,leicester-city,england-premier-league
+Liverpool,EPL,Liverpool,,liverpool,england-premier-league
+Manchester City,EPL,Manchester City,,manchester-city,england-premier-league
+Manchester United,EPL,Manchester United,,manchester-united,england-premier-league
+Middlesbrough,EPL,Middlesbrough,,middlesbrough,england-premier-league
+Newcastle United,EPL,Newcastle United,,newcastle,england-premier-league
+Norwich,EPL,Norwich,,norwich-city,england-premier-league
+Queens Park Rangers,EPL,Queens Park Rangers,,queens-park-rangers,england-premier-league
+Sheffield United,EPL,Sheffield United,,sheffield-united,england-premier-league
+Southampton,EPL,Southampton,,southampton,england-premier-league
+Stoke,EPL,Stoke,,stoke-city,england-premier-league
+Sunderland,EPL,Sunderland,,sunderland,england-premier-league
+Swansea,EPL,Swansea,,swansea,england-premier-league
+Tottenham,EPL,Tottenham,,tottenham,england-premier-league
+Watford,EPL,Watford,,watford,england-premier-league
+West Bromwich Albion,EPL,West Bromwich Albion,,west-bromwich,england-premier-league
+West Ham,EPL,West Ham,,west-ham,england-premier-league
+Wolverhampton Wanderers,EPL,Wolverhampton Wanderers,,wolves,england-premier-league
+Alaves,La_liga,Alaves,,,spain-laliga
+Almeria,La_liga,Almeria,,,spain-laliga
+Athletic Club,La_liga,Athletic Club,,,spain-laliga
+Atletico Madrid,La_liga,Atletico Madrid,,,spain-laliga
+Barcelona,La_liga,Barcelona,,,spain-laliga
+Cadiz,La_liga,Cadiz,,,spain-laliga
+Celta Vigo,La_liga,Celta Vigo,,,spain-laliga
+Cordoba,La_liga,Cordoba,,,spain-laliga
+Deportivo La Coruna,La_liga,Deportivo La Coruna,,,spain-laliga
+Eibar,La_liga,Eibar,,,spain-laliga
+Elche,La_liga,Elche,,,spain-laliga
+Espanyol,La_liga,Espanyol,,,spain-laliga
+Getafe,La_liga,Getafe,,,spain-laliga
+Girona,La_liga,Girona,,,spain-laliga
+Granada,La_liga,Granada,,,spain-laliga
+Las Palmas,La_liga,Las Palmas,,,spain-laliga
+Leganes,La_liga,Leganes,,,spain-laliga
+Levante,La_liga,Levante,,,spain-laliga
+Malaga,La_liga,Malaga,,,spain-laliga
+Mallorca,La_liga,Mallorca,,,spain-laliga
+Osasuna,La_liga,Osasuna,,,spain-laliga
+Rayo Vallecano,La_liga,Rayo Vallecano,,,spain-laliga
+Real Betis,La_liga,Real Betis,,,spain-laliga
+Real Madrid,La_liga,Real Madrid,,,spain-laliga
+Real Sociedad,La_liga,Real Sociedad,,,spain-laliga
+Real Valladolid,La_liga,Real Valladolid,,,spain-laliga
+SD Huesca,La_liga,SD Huesca,,,spain-laliga
+Sevilla,La_liga,Sevilla,,,spain-laliga
+Sporting Gijon,La_liga,Sporting Gijon,,,spain-laliga
+Valencia,La_liga,Valencia,,,spain-laliga
+Villarreal,La_liga,Villarreal,,,spain-laliga
+Amiens,Ligue_1,Amiens,,,france-ligue-1
+Angers,Ligue_1,Angers,,,france-ligue-1
+Bordeaux,Ligue_1,Bordeaux,,,france-ligue-1
+Brest,Ligue_1,Brest,,,france-ligue-1
+Caen,Ligue_1,Caen,,,france-ligue-1
+Clermont Foot,Ligue_1,Clermont Foot,,,france-ligue-1
+Dijon,Ligue_1,Dijon,,,france-ligue-1
+Evian Thonon Gaillard,Ligue_1,Evian Thonon Gaillard,,,france-ligue-1
+GFC Ajaccio,Ligue_1,GFC Ajaccio,,,france-ligue-1
+Guingamp,Ligue_1,Guingamp,,,france-ligue-1
+Lens,Ligue_1,Lens,,,france-ligue-1
+Lille,Ligue_1,Lille,,,france-ligue-1
+Lorient,Ligue_1,Lorient,,,france-ligue-1
+Lyon,Ligue_1,Lyon,,,france-ligue-1
+Marseille,Ligue_1,Marseille,,,france-ligue-1
+Metz,Ligue_1,Metz,,,france-ligue-1
+Monaco,Ligue_1,Monaco,,,france-ligue-1
+Montpellier,Ligue_1,Montpellier,,,france-ligue-1
+Nancy,Ligue_1,Nancy,,,france-ligue-1
+Nantes,Ligue_1,Nantes,,,france-ligue-1
+Nice,Ligue_1,Nice,,,france-ligue-1
+Nimes,Ligue_1,Nimes,,,france-ligue-1
+Paris Saint Germain,Ligue_1,Paris Saint Germain,,,france-ligue-1
+Reims,Ligue_1,Reims,,,france-ligue-1
+Rennes,Ligue_1,Rennes,,,france-ligue-1
+Saint-Etienne,Ligue_1,Saint-Etienne,,,france-ligue-1
+SC Bastia,Ligue_1,SC Bastia,,,france-ligue-1
+Strasbourg,Ligue_1,Strasbourg,,,france-ligue-1
+Toulouse,Ligue_1,Toulouse,,,france-ligue-1
+Troyes,Ligue_1,Troyes,,,france-ligue-1
+AC Milan,Serie_A,AC Milan,,,italy-serie-a
+Atalanta,Serie_A,Atalanta,,,italy-serie-a
+Benevento,Serie_A,Benevento,,,italy-serie-a
+Bologna,Serie_A,Bologna,,,italy-serie-a
+Brescia,Serie_A,Brescia,,,italy-serie-a
+Cagliari,Serie_A,Cagliari,,,italy-serie-a
+Carpi,Serie_A,Carpi,,,italy-serie-a
+Cesena,Serie_A,Cesena,,,italy-serie-a
+Chievo,Serie_A,Chievo,,,italy-serie-a
+Crotone,Serie_A,Crotone,,,italy-serie-a
+Empoli,Serie_A,Empoli,,,italy-serie-a
+Fiorentina,Serie_A,Fiorentina,,,italy-serie-a
+Frosinone,Serie_A,Frosinone,,,italy-serie-a
+Genoa,Serie_A,Genoa,,,italy-serie-a
+Inter,Serie_A,Inter,,,italy-serie-a
+Juventus,Serie_A,Juventus,,,italy-serie-a
+Lazio,Serie_A,Lazio,,,italy-serie-a
+Lecce,Serie_A,Lecce,,,italy-serie-a
+Napoli,Serie_A,Napoli,,,italy-serie-a
+Palermo,Serie_A,Palermo,,,italy-serie-a
+Parma,Serie_A,Parma,,,italy-serie-a
+Parma Calcio 1913,Serie_A,Parma Calcio 1913,,,italy-serie-a
+Pescara,Serie_A,Pescara,,,italy-serie-a
+Roma,Serie_A,Roma,,,italy-serie-a
+Salernitana,Serie_A,Salernitana,,,italy-serie-a
+Sampdoria,Serie_A,Sampdoria,,,italy-serie-a
+Sassuolo,Serie_A,Sassuolo,,,italy-serie-a
+SPAL 2013,Serie_A,SPAL 2013,,,italy-serie-a
+Spezia,Serie_A,Spezia,,,italy-serie-a
+Torino,Serie_A,Torino,,,italy-serie-a
+Udinese,Serie_A,Udinese,,,italy-serie-a
+Venezia,Serie_A,Venezia,,,italy-serie-a
+Verona,Serie_A,Verona,,,italy-serie-a
