@@ -6,7 +6,7 @@ years = [2021, 2022]
 bet_types = ['win-market']
 
 
-# Note: List of leagues and teams comes from data/mapping
+# Note: List of leagues and teams comes from master data
 
 def get_data_oddsmagnet(league, years, bet_types, teams):
     for year in years:
