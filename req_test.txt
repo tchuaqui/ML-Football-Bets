@@ -1,0 +1,4 @@
+certifi==2021.10.8
+pip==21.2.4
+setuptools==58.0.4
+wheel==0.37.1
