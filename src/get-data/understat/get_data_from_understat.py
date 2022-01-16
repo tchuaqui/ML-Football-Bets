@@ -5,6 +5,9 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
+#Directory of understat data
+understat_data_dir = '../../../data/understat/'
+
 # For urls of all seasons of all leagues in understat.com
 leagues = ['La_liga', 'EPL', 'Bundesliga', 'Serie_A', 'Ligue_1']
 seasons = ['2014', '2015', '2016', '2017', '2018','2019','2020','2021']
@@ -30,7 +33,7 @@ seasons = ['2014', '2015', '2016', '2017', '2018','2019','2020','2021']
 # pts: Points
 # npxGD: npxG-npxGA
 
-def get_understat_data(leagues, seasons):
+def get_understat_data(leagues, seasons, understat_data_dir):
     base_url = 'https://understat.com/league'
     for league in leagues:
         for season in seasons:
@@ -90,7 +93,7 @@ def get_understat_data(leagues, seasons):
 
             #Save dataframes in ../../../data/understat/
             for team in df_teams.keys():
-                df_teams[team].to_csv('../../../data/understat/'+league+'_'+season+'_'+team+'.csv')
-                df_teams_cumulative[team].to_csv('../../../data/understat/'+league+'_'+season+'_'+team+'_cumul.csv')
+                df_teams[team].to_csv(understat_data_dir+league+'_'+season+'_'+team+'.csv')
+                df_teams_cumulative[team].to_csv(understat_data_dir+league+'_'+season+'_'+team+'_cumul.csv')
 
-get_understat_data(leagues, seasons)
+get_understat_data(leagues, seasons, understat_data_dir)
