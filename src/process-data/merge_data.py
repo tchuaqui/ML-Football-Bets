@@ -11,7 +11,7 @@ oddsmagnet_data_dir = '../../data/oddsmagnet/'
 
 # Create dictionaries of understat dataframes, each for a season/league
 leagues = ['La_liga']
-seasons = ['2014','2015']
+seasons = ['2014','2015','2016','2017','2018','2019','2020','2021']
 
 
 #Function aggregates all understat non-cumulative data into dictionary of dataframes per team
@@ -61,7 +61,7 @@ def moving_series_understat(non_cum_team_stats, window):
     cols_to_mean = ['ppda_ratio', 'oppda_ratio']
     # Apply transformations (mean/sum and then shift)
     for team in non_cum_team_stats.keys():
-        cum_team_stats[team] = non_cum_team_stats[team]
+        cum_team_stats[team] = non_cum_team_stats[team].copy()
         cum_team_stats[team][cols_to_sum] = cum_team_stats[team][cols_to_sum].rolling(window).sum()
         cum_team_stats[team][cols_to_mean] = cum_team_stats[team][cols_to_mean].rolling(window).mean()
         cum_team_stats[team][cols_to_sum] = cum_team_stats[team][cols_to_sum].shift(1)
@@ -124,7 +124,8 @@ def non_moving_series_understat(leagues, seasons, master_data, understat_data_di
                 cum_team_stats[team] = pd.DataFrame(understat_list, columns=understat_columns)
     return cum_team_stats
 
-
+# Function merges cumulative understat and match data and outputs data_full containing this data organised by season and league
+# Function also outputs historical match data organised by league and pairs of teams (in alphabethical order)
 def merge_match_understat(leagues, seasons, master_data, team_cum_stats, football_data_dir):
     # Save understat merged column values for all data (for later use)
     column_values = ['home_xG', 'home_xGA', 'home_npxG', 'home_npxGA', 'home_deep', 'home_deep_allowed',
@@ -133,8 +134,16 @@ def merge_match_understat(leagues, seasons, master_data, team_cum_stats, footbal
                      'away_npxGA', 'away_deep', 'away_deep_allowed', 'away_xpts', 'away_wins',
                      'away_draws', 'away_loses', 'away_pts', 'away_npxGD', 'away_ppda_ratio', 'away_oppda_ratio']
 
+    # Necessary columns in matches dataframes and for historical match data
+    nec_columns_matches = ['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']
+
     # Create dictionary for all data
     data_full = {}
+    # Create dictionary for historical match data
+    df_for_historical = {}
+    for league in leagues:
+        df_for_historical[league] = {}
+
     for season in seasons:
         data_full[season] = {}
         for league in leagues:
@@ -143,7 +152,7 @@ def merge_match_understat(leagues, seasons, master_data, team_cum_stats, footbal
             # Load match data in league and season
             df_matches = pd.read_csv(football_data_dir+league+'_'+season+'_results.csv')
             # Keep only necessary columns
-            df_matches = df_matches[['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']]
+            df_matches = df_matches[nec_columns_matches]
             # Remove rows with NaNs
             df_matches.dropna(inplace=True)
             # Change date format to match understat data
@@ -163,6 +172,16 @@ def merge_match_understat(leagues, seasons, master_data, team_cum_stats, footbal
                 date_match = matches_array[i_match, 0]
                 home_team = matches_array[i_match, 1]
                 away_team = matches_array[i_match, 2]
+                FTHG = matches_array[i_match, 3]
+                FTAG = matches_array[i_match, 4]
+
+                # Save historical match data
+                key_hist = tuple(sorted([home_team, away_team]))
+                if key_hist in df_for_historical[league].keys():
+                    df_for_historical[league][key_hist].append([date_match, home_team, away_team, FTHG, FTAG])
+                else:
+                    df_for_historical[league][key_hist] = [[date_match, home_team, away_team, FTHG, FTAG]]
+
                 # Create dfs with home team and away team data for match date from understat dataframes
                 team_home = team_cum_stats[home_team].loc[(team_cum_stats[home_team]['date'] == date_match) &
                                                                 (team_cum_stats[home_team]['h_a'] == 'h')]
@@ -194,35 +213,101 @@ def merge_match_understat(leagues, seasons, master_data, team_cum_stats, footbal
                 new_row_list = new_row.values.tolist()
                 understat_data.append(new_row_list[0])
 
+            print(season, league, 'Original n of matches: ', len(df_matches))
             # Remove matches with missing data
             if i_matches_to_remove:
                 rows_to_remove = df_matches.index[i_matches_to_remove]
                 df_matches.drop(rows_to_remove, inplace=True)
+            print(season, league, 'matches to remove: ', len(i_matches_to_remove))
             # Create dataframe from understat data organised by matches
             df_understat_matches = pd.DataFrame(understat_data, columns=column_values)
             # Concatenate df_matches with df_understat_matches
             df_matches = pd.concat([df_matches.reset_index(drop=True), df_understat_matches.reset_index(drop=True)], axis=1)
+            # Test
+            print(season, league, 'Final n of matches: ', len(df_matches))
+            #
             # Remove rows with NaNs (understat data may have NaNs due to offset from rolling sums/averages)
             df_matches.dropna(inplace=True)
             # Check NaNs
             if df_matches.isnull().values.any(): print('Error - NaNs!', league, season)
             del df_understat_matches
             data_full[season][league] = df_matches
-    return data_full
 
-# # Add historical match data (one vs one) using last 3 and last 5 matches
-# for key_season, data_season in data_full.items():
-#     for key_league, data_league in data_season.items():
+    # Convert historical match data to dataframe
+    for league in df_for_historical.keys():
+        for key, df in df_for_historical[league].items():
+            df_for_historical[league][key] = pd.DataFrame(df, columns=nec_columns_matches)
 
+    return data_full, df_for_historical
+
+# Function merges historical match data of the last "number_historical_matches" matches to all the other data
+def merge_historical_data(df_full, df_historical_data, number_historical_matches):
+    # New column values for dataframe
+    n_cols = ['FTHG', 'FTAG', 'home_bool']
+    # Last entries are more recent matches
+    new_cols = [col+str(-i) for i in range(number_historical_matches, 0, -1) for col in n_cols]
+
+    df_full_new = {}
+    for season in df_full.keys():
+        df_full_new[season] = {}
+        for league in df_full[season].keys():
+            table_match = []
+            df_full_array = df_full[season][league].to_numpy()
+            for i_match in range(len(df_full_array)):
+                date_match = df_full_array[i_match, 0]
+                home_team = df_full_array[i_match, 1]
+                away_team = df_full_array[i_match, 2]
+
+                # Get historical match data
+                df_h_match = df_historical_data[league][tuple(sorted([home_team, away_team]))]
+                df_h_match = df_h_match[df_h_match['Date'] < date_match]
+                # Replace HomeTeam column by boolean variable (True when home team in historical match is home team of actual match)
+                df_h_match['HomeTeam'] = df_h_match['HomeTeam'].apply(lambda x: x==home_team)
+                df_h_match = df_h_match.rename(columns={'HomeTeam': 'home_bool'})
+                # Drop date and away team
+                df_h_match.drop(columns=['Date', 'AwayTeam'], inplace=True)
+                # Re-order columns to match n_cols
+                df_h_match = df_h_match[n_cols]
+
+                # Create array to append with historical match data
+                df_h_match_array = df_h_match.to_numpy()
+                if 0 < np.shape(df_h_match_array)[0] < number_historical_matches:
+                    aux = np.empty(3*(number_historical_matches - np.shape(df_h_match_array)[0]))
+                    aux[:] = np.NaN
+                    df_h_match_array = np.concatenate((aux, df_h_match_array.flatten()))
+                elif np.shape(df_h_match_array)[0] == 0:
+                    df_h_match_array = np.empty(3*number_historical_matches)
+                    df_h_match_array[:] = np.NaN
+                else:
+                    df_h_match_array = df_h_match_array[-number_historical_matches:, :].flatten()
+                table_match.append(df_h_match_array.tolist())
+
+            # Concatenate historical match data with full data dataframe
+            df_h = pd.DataFrame(table_match, columns=new_cols)
+            df_full_new[season][league] = pd.concat([df_full[season][league].reset_index(drop=True),
+                                                 df_h.reset_index(drop=True)], axis=1)
+    return df_full_new
 
 
 # Read csv with master data
 master_data = pd.read_csv(master_table_dir)
 
+# Aggregate non-cumulative understat data per team
 team_stats = aggregate_understat(leagues, seasons, master_data, understat_data_dir)
+
+# Convert to cumulative understat data (either with rolling window or per season)
 team_cum_rolling_stats = moving_series_understat(team_stats, 10)
 team_cum_season_stats = non_moving_series_understat(leagues, seasons, master_data, understat_data_dir)
-df_full1 = merge_match_understat(leagues, seasons, master_data, team_cum_rolling_stats, football_data_dir)
-df_full2 = merge_match_understat(leagues, seasons, master_data, team_cum_season_stats, football_data_dir)
+
+# Merge understat data with match data. Output merged understat+match data and historical match data in separate dataframes
+df_full1, data_historical = merge_match_understat(leagues, seasons, master_data, team_cum_rolling_stats,
+                                                  football_data_dir)
+
+# Merge understat+match data with historical match data with desired number of historical matches
+df_final1 = merge_historical_data(df_full1, data_historical, 3)
+
+
+#df_full2, data_historical = merge_match_understat(leagues, seasons, master_data, team_cum_season_stats,
+#                                                  football_data_dir)
 
 x = 1
