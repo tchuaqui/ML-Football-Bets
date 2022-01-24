@@ -13,22 +13,28 @@ def get_data_oddsmagnet(league, years, bet_types, teams):
         for bet_type in bet_types:
             odds_data = []
             odds_columns = []
-            for team_home in teams:
-                for team_away in teams:
-                    if team_home != team_away:
+            home_teams = []
+            away_teams = []
+            for home_team in teams:
+                for away_team in teams:
+                    if home_team != away_team:
                         link = "https://data.oddsmagnet.com/history/%s/football/%s/%s-v-%s/%s.json" % \
-                               (year, league, team_home, team_away, bet_type)
+                               (year, league, home_team, away_team, bet_type)
                         try:
                             with urllib.request.urlopen(link) as url:
                                 odds = json.loads(url.read().decode())
                                 odds_data_new = odds["data"]
                                 odds_data += odds_data_new
+                                home_teams += [home_team]*len(odds_data_new)
+                                away_teams += [away_team]*len(odds_data_new)
                                 if not odds_columns:
                                     odds_columns = odds["columns"]
-                                print("%s/%s-v-%s/%s" % (year, team_home, team_away, bet_type))
+                                print("%s/%s-v-%s/%s" % (year, home_team, away_team, bet_type))
                         except:
                             continue  # if url does not return any files then we ignore it
             df_odds = pd.DataFrame(data=odds_data, columns=odds_columns)
+            df_odds["home_team"] = home_teams
+            df_odds["away_team"] = away_teams
             df_odds.to_csv('../../../data/oddsmagnet/%s_%s_%s.csv' % (year, league, bet_type))
 
 
