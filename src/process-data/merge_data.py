@@ -10,7 +10,7 @@ oddsmagnet_data_dir = '../../data/oddsmagnet/'
 
 
 # Create dictionaries of understat dataframes, each for a season/league
-leagues = ['La_liga']
+leagues = ['La_liga', 'EPL', 'Bundesliga', 'Serie_A', 'Ligue_1']
 seasons = ['2014','2015','2016','2017','2018','2019','2020','2021']
 
 
@@ -288,6 +288,27 @@ def merge_historical_data(df_full, df_historical_data, number_historical_matches
                                                  df_h.reset_index(drop=True)], axis=1)
     return df_full_new
 
+# Function to convert dictionaries of dataframes to single dataframe and/or export to csv
+def export_dataframe_dic_to_csv(dic_df, name_csv, return_df=True):
+    cols = []
+    df_total_list = []
+    for key1, value1 in dic_df.items():
+        for key2, df in value1.items():
+            # Save columns
+            if not cols:
+                cols = df.columns.values.tolist()
+            # Append each season/league df to large list
+            df_list = df.values.tolist()
+            for row in df_list:
+                df_total_list.append(row)
+
+    df_total = pd.DataFrame(df_total_list, columns=cols)
+    df_total.to_csv('../../data/%s.csv' %(name_csv))
+    if return_df:
+        return df_total
+
+
+
 
 # Read csv with master data
 master_data = pd.read_csv(master_table_dir)
@@ -300,14 +321,18 @@ team_cum_rolling_stats = moving_series_understat(team_stats, 10)
 team_cum_season_stats = non_moving_series_understat(leagues, seasons, master_data, understat_data_dir)
 
 # Merge understat data with match data. Output merged understat+match data and historical match data in separate dataframes
-df_full1, data_historical = merge_match_understat(leagues, seasons, master_data, team_cum_rolling_stats,
+df1, data_historical1 = merge_match_understat(leagues, seasons, master_data, team_cum_rolling_stats,
+                                                  football_data_dir)
+
+df2, data_historical2 = merge_match_understat(leagues, seasons, master_data, team_cum_season_stats,
                                                   football_data_dir)
 
 # Merge understat+match data with historical match data with desired number of historical matches
-df_final1 = merge_historical_data(df_full1, data_historical, 3)
+df1_merged = merge_historical_data(df1, data_historical1, 3)
+df2_merged = merge_historical_data(df2, data_historical2, 3)
 
-
-#df_full2, data_historical = merge_match_understat(leagues, seasons, master_data, team_cum_season_stats,
-#                                                  football_data_dir)
+# Export to csv and return single dataframe
+df1_full = export_dataframe_dic_to_csv(df1_merged, 'full_data_rolling')
+df2_full = export_dataframe_dic_to_csv(df2_merged, 'full_data_season')
 
 x = 1
