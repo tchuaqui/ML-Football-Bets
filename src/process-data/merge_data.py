@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import date, timedelta
+import math
 
 #Directory of data sources
 understat_data_dir = '../../data/understat/'
@@ -240,6 +241,19 @@ def merge_match_understat(leagues, seasons, master_data, team_cum_stats, footbal
 
     return data_full, df_for_historical
 
+# Create column for result
+def convert_result(df, goals_home, goals_away):
+    if math.isnan(df[goals_home]) or math.isnan(df[goals_away]):
+        return np.nan
+    else:
+        if df[goals_home]>df[goals_away]:
+            return 'w'
+        elif df[goals_home]==df[goals_away]:
+            return 'd'
+        else:
+            return 'l'
+
+
 # Function merges historical match data of the last "number_historical_matches" matches to all the other data
 def merge_historical_data(df_full, df_historical_data, number_historical_matches):
     # New column values for dataframe
@@ -286,6 +300,15 @@ def merge_historical_data(df_full, df_historical_data, number_historical_matches
             df_h = pd.DataFrame(table_match, columns=new_cols)
             df_full_new[season][league] = pd.concat([df_full[season][league].reset_index(drop=True),
                                                  df_h.reset_index(drop=True)], axis=1)
+
+            # Create results feature for current match and previous ones, and convert home_bool feature to 1/0
+            df_full_new[season][league]['result'] = df_full_new[season][league].apply(convert_result,
+                                                                                      args=('FTHG', 'FTAG'), axis=1)
+            match_list = range(-number_historical_matches, 0, 1)
+            for match in match_list:
+                df_full_new[season][league]['home_bool%d' % (match)] = df_full_new[season][league]['home_bool%d' % (match)].apply(lambda x: int(x == True) if not math.isnan(x) else np.nan)
+                df_full_new[season][league]['result%d' % (match)] = df_full_new[season][league].apply(convert_result, args=('FTHG%d' %(match), 'FTAG%d' %(match)), axis=1)
+
     return df_full_new
 
 # Function to convert dictionaries of dataframes to single dataframe and/or export to csv
