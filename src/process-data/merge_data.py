@@ -357,5 +357,3 @@ df2_merged = merge_historical_data(df2, data_historical2, 3)
 # Export to csv and return single dataframe
 df1_full = export_dataframe_dic_to_csv(df1_merged, 'full_data_rolling')
 df2_full = export_dataframe_dic_to_csv(df2_merged, 'full_data_season')
-
-x = 1
